@@ -12,24 +12,24 @@ main_dict={
 def regex(colour, line):  
     pattern = rf'(\d+)\s*{colour}'
     matches = re.findall(pattern, line)
+    max=0
     for match in matches:  
-        if int(match) > main_dict.get(colour): 
-            return True
-    return False
+        if int(match) > max:
+            max=int(match)
+    return max
 
 def all_regex(line):
-    if regex("green", line) or regex("red", line) or regex("blue", line):
-        return False
-    return get_id(line)  
+    max_green=regex("green", line)
+    max_red=regex("red", line)
+    max_blue=regex("blue", line)    
+    return max_green*max_red*max_blue  
 
 def main():
     with open('Day2/input.txt', 'r') as file:  
         total=0     
-        for line in file:
+        for line in file:  
             print("NEW BEGINNING")
-            id=all_regex(line)
-            total+=int(id)
-            print(total)
-        
-
+            prod=all_regex(line)
+            total+=prod
+    print(total)
 main()
