@@ -1,7 +1,8 @@
 import pandas as pd
 
-# Initialize an empty list to hold the lists of characters
+# 2d array to hold all our numbers
 array = []
+all_valid=[]
 
 with open('Day3/input.txt', 'r') as file:
     for line in file:
@@ -64,26 +65,41 @@ def next_to_symbol(x_pos, y_pos, array):
                 return True
     return False
 
-def loop_array(num,array):
-    for i in range (len(array)):
-        for y in range (len(array[0])):
-            cur=array[i][y]
-            if(cur==num):
-                return i,y
+def loop_array(num, array, processed):
+    for i in range(len(array)):
+        for y in range(len(array[0])):
+            cur = array[i][y]
+            if cur == num and (i, y) not in processed:
+                processed.add((i, y)) 
+                return i, y
+    return None, None  
+
 def test():  
-           
+    final_list=[]
+    processed = set()          
     grouped_numbers = find_grouped_numbers_in_array(array)
     for number in grouped_numbers:
-        print("new numer")
-        print(number)
-        for num in number:
-            x,y=loop_array(num,array)
-            print("Is found at the coordinates",x,y)
-            next_to=next_to_symbol(x,y,array)
-            print(next_to)
-            if next_to:
-                print(num)
-test()      
+        
+        verify_num(number,processed)
+                
+def verify_num(number,processed):
+    cur_cond=[]
+    for num in number:
+            x, y = loop_array(num, array, processed) 
+            if x is not None and y is not None:  
+                #print("Is found at the coordinates", x, y)
+                next_to = next_to_symbol(x, y, array)
+                cur_cond.append(next_to)
+                
+    if True in cur_cond:
+       all_valid.append(int(number))
+    else:
+        print("")
+
+            
+test() 
+
+print(sum(all_valid))     
 
 
 
