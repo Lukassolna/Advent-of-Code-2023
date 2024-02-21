@@ -37,7 +37,7 @@ def get_all_numbers():
             cur=array[i][y]
             if cur.isnumeric():
                 print(f'Current number is : {cur}')
-            
+#        
 def is_symbol(sym):
     if sym.isnumeric():
         return False
