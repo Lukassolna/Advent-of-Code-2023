@@ -3,7 +3,8 @@ import numpy as np
 def first():
     with open('Day4/input.txt', 'r') as file:
         total=0
-        for line in file:
+        for index,line in enumerate(file,start=1):
+            
             line = line.strip()
             parts=line.split(" | ")
             cleaned_rows = re.sub(r'^.*?:\s*', '', parts[0])
