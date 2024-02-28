@@ -54,14 +54,11 @@ def insert(hand):
         for i in range(sorted):
             # check if hand is better then the current
             if(compare_hands(hand,sorted[i])==1):
-
-    return sorted
-
-def first():
+                print("OE")
     
 
-    with open('Day7/input.txt', 'r') as file:
-        
+def first():
+    with open('Day7/input.txt', 'r') as file:   
         for index,line in enumerate(file,start=1):
             line = line.strip()
             split=line.split(" ")
@@ -70,8 +67,7 @@ def first():
             insert(cur)
            
            
-            
-
+        
 def compare_hands(hand1,hand2):
     rank1=get_rank(hand1)
     rank2=get_rank(hand2)
