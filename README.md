@@ -1,2 +1,3 @@
 # Advent-of-Code-2023
-Lets go
+My solutions to this years Advent of Code
+All the solutions are done in python
