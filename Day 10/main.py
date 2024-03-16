@@ -28,19 +28,25 @@ def verify(y,x,maxY,maxX):
 def traverse(array, y, x, maxY, maxX,lastmove,startvalue=0):    
     cur = array[y][x]
     print(cur)
+
+    if x < 0 or x >= maxX or y < 0 or y >= maxY:
+        print("outside of the map bro")
+        return None
     if cur == 'S' and startvalue >0: 
         return startvalue
+    
+    
     # Example conditions for moving in different directions
-    if array[y-1][x] in ('|', '7', 'F') and lastmove not in ['s'] and verify(y,x,maxY,maxX) :  # North
+    if array[y-1][x] in ('|', '7', 'F') and lastmove not in ['s']  :  # North
         print("north")
         return traverse(array, y-1, x, maxY, maxX,'n',startvalue+1)
-    if array[y+1][x] in ('|', 'J', 'L')and lastmove not in ['n']and verify(y,x,maxY,maxX):  # South
+    if array[y+1][x] in ('|', 'J', 'L')and lastmove not in ['n']:  # South
         print("south")
         return traverse(array, y+1, x, maxY, maxX,'s',startvalue+1)
-    if array[y][x+1] in ('-', 'J', '7')and lastmove not in ['w']and verify(y,x,maxY,maxX): # East
+    if array[y][x+1] in ('-', 'J', '7')and lastmove not in ['w']: # East
         print("east")
         return traverse(array, y, x+1, maxY, maxX,'e',startvalue+1)
-    if array[y][x-1] in ('-', 'F', 'L')and lastmove not in ['e']and verify(y,x,maxY,maxX): # West
+    if array[y][x-1] in ('-', 'F', 'L')and lastmove not in ['e']: # West
         print("west")
         return traverse(array, y, x-1, maxY, maxX,'w',startvalue+1)
       
