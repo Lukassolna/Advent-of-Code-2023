@@ -1,5 +1,7 @@
 import re
 import numpy as np
+import sys
+sys.setrecursionlimit(1000000)
 def first():
 
     
@@ -22,37 +24,42 @@ def first():
 
         cur=array[y][x]
         print(traverse(array,y,x,maxY,maxX,'y',0))
-def verify(y,x,maxY,maxX):
-    return not (x < 0 or x >= maxX or y < 0 or y >= maxY)
-    
-def traverse(array, y, x, maxY, maxX,lastmove,startvalue=0):    
-   
-    if x < 0 or x >= maxX or y < 0 or y >= maxY:
-        return None
-        print("outside of the map bro")
 
-    
-        
-    
+def traverse(array, y, x, maxY, maxX, lastmove, startvalue=0):
+    if x < 0 or x >= maxX or y < 0 or y >= maxY:
+        return None  # Out of bounds
+
     cur = array[y][x]
+    print(f'you are currently at {y,x}')
     print(cur)
 
     if cur == 'S' and startvalue != 0:
-        return startvalue
+        print("reached end of the line")
+        print(f'and this took {startvalue} steps')
+        return startvalue  # Path completed
 
-    if y > 0 and array[y-1][x] in ('|', '7', 'F') and lastmove != 's':  # North
-        print("north")
-        return traverse(array, y-1, x, maxY, maxX, 'n', startvalue+1)
-    if y < maxY - 1 and array[y+1][x] in ('|', 'J', 'L') and lastmove != 'n':  # South
+    # Explore North if not coming from South and the path is valid
+    if y > 0 and cur in('S','|','L','J') and array[y-1][x] in ('|', '7', 'F', 'S') and lastmove != 's':
+        #print("north")
+        north = traverse(array, y-1, x, maxY, maxX, 'n', startvalue+1)
+        
+
+    # Explore South
+    if y < maxY - 1 and cur in('S','7','F','|') and  array[y+1][x] in ('|', 'J', 'L', 'S') and lastmove != 'n':
         print("south")
-        return traverse(array, y+1, x, maxY, maxX, 's', startvalue+1)
-    if x < maxX - 1 and array[y][x+1] in ('-', 'J', '7') and lastmove != 'w': # East
+        south = traverse(array, y+1, x, maxY, maxX, 's', startvalue+1)
+
+    # Explore East
+    if x < maxX - 1 and cur in('S','-','F','L') and array[y][x+1] in ('-', 'J', '7', 'S') and lastmove != 'w':
         print("east")
-        return traverse(array, y, x+1, maxY, maxX, 'e', startvalue+1)
-    if x > 0 and array[y][x-1] in ('-', 'F', 'L') and lastmove != 'e': # West
+        east = traverse(array, y, x+1, maxY, maxX, 'e', startvalue+1)
+        
+    # Explore West
+    if x > 0 and cur in('S','-','J','7') and array[y][x-1] in ('-', 'F', 'L', 'S') and lastmove != 'e':
         print("west")
-        return traverse(array, y, x-1, maxY, maxX, 'w', startvalue+1)
-    return None
+        west = traverse(array, y, x-1, maxY, maxX, 'w', startvalue+1)
+        
+    
 
 
 def findS(array):
