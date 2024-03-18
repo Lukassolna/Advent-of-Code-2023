@@ -27,7 +27,8 @@ def first():
 
 def traverse(array, y, x, maxY, maxX, lastmove, startvalue=0):
     if x < 0 or x >= maxX or y < 0 or y >= maxY:
-        return None  # Out of bounds
+        print("you are outside of the map chill")
+        return None  
 
     cur = array[y][x]
     print(f'you are currently at {y,x}')
@@ -38,7 +39,7 @@ def traverse(array, y, x, maxY, maxX, lastmove, startvalue=0):
         print(f'and this took {startvalue} steps')
         return startvalue  # Path completed
 
-    # Explore North if not coming from South and the path is valid
+    # Explore North
     if y > 0 and cur in('S','|','L','J') and array[y-1][x] in ('|', '7', 'F', 'S') and lastmove != 's':
         #print("north")
         north = traverse(array, y-1, x, maxY, maxX, 'n', startvalue+1)
