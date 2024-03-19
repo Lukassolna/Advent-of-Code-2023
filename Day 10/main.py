@@ -2,15 +2,11 @@ import re
 import numpy as np
 import sys
 sys.setrecursionlimit(1000000)
-def first():
-
-    
+def first(): 
     with open('Day 10/input.txt', 'r') as file: 
-        array=[]
-        
+        array=[]    
         total=0
-        for index,line in enumerate(file):
-            
+        for index,line in enumerate(file):  
             line=line.strip()
             cur=[]
             for char in line:
@@ -18,10 +14,7 @@ def first():
             array.append(cur)
         maxY=len(array)
         maxX=len(array[0])
-
         y,x=findS(array)
-
-
         cur=array[y][x]
         print(traverse(array,y,x,maxY,maxX,'y',0))
 
