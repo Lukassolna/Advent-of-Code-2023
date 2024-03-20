@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import sys
-sys.setrecursionlimit(1000000)
+sys.setrecursionlimit(2000000)
 def first(): 
     with open('Day 10/input.txt', 'r') as file: 
         array=[]    
