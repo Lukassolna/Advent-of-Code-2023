@@ -15,7 +15,6 @@ def process_row(row):
                     process_row(left.replace('?', '.', 1) + " " + right))
         else:
             return [validate(f"{left} {','.join(map(str, counts))}")]
-
 def validate(row):
         status_desc, damaged_counts = row.split(" ")
         counts = parse_damaged_counts(damaged_counts)
