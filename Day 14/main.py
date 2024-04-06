@@ -29,7 +29,8 @@ def count():
 
 
 outputs = []
-for x in range(1,100):
+for x in range(1,200):
+    print(x)
     array=first()
     
     for i in range(x):
@@ -96,11 +97,27 @@ for x in range(1,100):
         
 
     outputs.append(count())
+def detect_cycle(arr):
+    # Find the repeating sequence by checking for the smallest cycle
+    for cycle_length in range(1, len(arr)):
+        cycle_found = True
+        # Check if the cycle repeats until the end of the array
+        for i in range(len(arr) - cycle_length):
+            if arr[i] != arr[i + cycle_length]:
+                cycle_found = False
+                break
+        if cycle_found:
+            # Return the start index and length of the cycle
+            return 0, cycle_length
+    # If no cycle is found, return the whole array as a cycle
+    return 0, len(arr)
 
+def value_at_index(arr, index):
+    start, cycle_length = detect_cycle(arr)
+    # Calculate the position within the cycle for the given index
+    cycle_pos = (index - start) % cycle_length
+    return arr[start + cycle_pos]
+
+index = 1000000000
 print(outputs)
-plt.plot(range(1,100), outputs)
-plt.xlabel('x')
-plt.ylabel('Output')
-plt.title('Function Output for x from 1 to 100')
-plt.grid(True)
-plt.show()
+print("Value at index", index, "is", value_at_index(outputs, index))
